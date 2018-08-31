@@ -13,11 +13,37 @@ class List {
         Node<T>* start;
 
     public:
-        List();
+        List(){
+          this->start = nullptr;
+        };
 
-        T front();
-        T back();
-        void push_front(T value);
+        T front(){
+          if(!this->start){
+            throw("empty list");
+          }else{
+            return this->start->data;
+          }
+        };
+        T back(){
+          if (!this->start) {
+            throw("empty list");
+          }else{
+            return this->start->prev->data;
+          }
+        };
+        void push_front(T value){
+          Node<T> *temp = New  Node<T> {value, nullptr, nullptr};
+          if (!this->start) {
+            temp->next = temp;
+            temp->prev = temp;
+          }else{
+            temp->next = this->start;
+            temp->prev = this->start->prev;
+            this->start->prev->next = temp;
+            this->start->prev = temp;
+          }
+            this->start = temp;
+        };
         void push_back(T value);
         void pop_front();
         void pop_back();

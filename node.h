@@ -12,7 +12,6 @@ struct Node {
     Node* prev;
 
     void killSelf();
-    void print_next();
 };
 
 #endif
