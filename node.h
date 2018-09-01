@@ -11,7 +11,11 @@ struct Node {
     Node* next;
     Node* prev;
 
-    void killSelf();
+    void killSelf(){
+      if (this->next) {
+        /* code */
+      }
+    };
 };
 
 #endif
