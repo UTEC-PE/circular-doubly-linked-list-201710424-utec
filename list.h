@@ -22,14 +22,14 @@ class List {
           if(!this->start){
             throw("empty list");
           }else{
-            return this->start->data;
+            return *this->begin();
           }
         };
         T back(){
           if (!this->start) {
             throw("empty list");
           }else{
-            return this->start->prev->data;
+            return *this->end();
           }
         };
         void push_front(T value){
@@ -53,6 +53,7 @@ class List {
           if (!this->start) {
             temp->next = temp;
             temp->prev = temp;
+            this->start = temp;
           }else{
             temp->next = this->start;
             temp->prev = this->start->prev;
@@ -90,19 +91,41 @@ class List {
           }
           this->nodes--;
         };
-        T get(int position);
+        T get(int position){
+          Iterator<T> current = this->begin();
+          for (int i = 0; i < position; i++, ++current){}
+          return *current;
+        };
         void concat(List<T> &other){
-          
+          Node<T>* temp = other.start->prev;
+          other.start->prev->next = this->start;
+          this->start->prev->next = other.start;
+          other.start->prev = this->start->prev;
+          this->start->prev = temp;
+          temp = nullptr;
+          delete temp;
+          this->nodes += other.nodes;
+          other.start = nullptr;
+          delete other.start;
         };
         bool empty(){return !this->start;};
         int size(){return this->nodes;};
         void clear(){
-
+          this->start->killSelf(this->start);
+          this->nodes=0;
+          this->start=nullptr;
         };
-        Iterator<T> begin();
-        Iterator<T> end();
+        Iterator<T> begin(){return Iterator<T> (this->start);};
+        Iterator<T> end(){return Iterator <T> (this->start->prev);};
 
-        //~List();
+      ~List(){
+          if (this->start) {
+            this->start->killSelf(this->start);
+            this->nodes=0;
+            this->start=nullptr;
+            delete this->start;
+          }
+        };
 };
 
 #endif

@@ -11,10 +11,11 @@ struct Node {
     Node* next;
     Node* prev;
 
-    void killSelf(){
-      if (this->next) {
-        /* code */
+    void killSelf(Node<T> *start_ptr){
+      if (this->next!=start_ptr) {
+        this->next->killSelf(start_ptr);
       }
+      delete this;
     };
 };
 
