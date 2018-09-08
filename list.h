@@ -44,7 +44,7 @@ class List {
             this->start->prev = temp;
           }
             this->start = temp;
-            temp = nullptr;
+            temp = nullptr; // Esto está de más, no es necesario. Igual que la siguiente línea
             delete temp;
             this->nodes++;
         };
@@ -60,7 +60,7 @@ class List {
             this->start->prev->next = temp;
             this->start->prev = temp;
           }
-          temp = nullptr;
+          temp = nullptr; // Esto está de más, no es necesario. Igual que la siguiente línea
           delete temp;
           this->nodes++;
         };
@@ -102,11 +102,11 @@ class List {
           this->start->prev->next = other.start;
           other.start->prev = this->start->prev;
           this->start->prev = temp;
-          temp = nullptr;
+          temp = nullptr; // Esto está de más, no es necesario. Igual que la siguiente línea
           delete temp;
           this->nodes += other.nodes;
           other.start = nullptr;
-          delete other.start;
+          delete other.start; // Esto está de más, no es necesario. Igual que la siguiente línea
         };
         bool empty(){return !this->start;};
         int size(){return this->nodes;};
